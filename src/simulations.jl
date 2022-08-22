@@ -87,7 +87,7 @@ function simulation!(path::Path, shocks::ADraw, model, a; n, trim, trim_def)
     in_def[1] = false
     no_def_duration[1] = 1
 
-    state = init_simulation_state(model, y_ind[1])
+    state = init_simulation_state(model, shocks.y_ind[1])
     for t in 1:n
         y_ind[t] = shocks.y_ind[t]
         m[t] = shocks.m[t]
@@ -219,6 +219,7 @@ function moments(sim_paths::Vector, a)
     spread = flatten_assign!((x, j) -> (1 + x.r[j])^4 - R^4, tmp_1, sim_paths, in_sample)
     mean_spread = mean(spread)
     std_spread = sqrt(var(spread))
+    max_spread = maximum(spread)
 
     y = flatten_assign!((x, j) -> log(x.y[j] - x.m[j]), tmp_2, sim_paths, in_sample)
     cor_r_y = cor(spread, y)
@@ -268,6 +269,7 @@ function moments(sim_paths::Vector, a)
         mean_spread,
         std_spread,
         mean_κ,
+        max_spread,
         std_κ,
         max_κ,
         std_c_y,
