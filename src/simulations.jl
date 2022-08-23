@@ -61,7 +61,7 @@ end
 
 
 draw_runs(model, n; rng) = draw_runs(has_runs(model), model, n; rng)
-draw_runs(::NoRuns, model, n; rng)  = fill(false, n) 
+draw_runs(::NoRuns, model, n; rng)  = fill(false, n)
 draw_runs(::WithRuns, model, n; rng)  = rand(rng, Bernoulli(get_η(model)), n) 
 
 
@@ -87,7 +87,7 @@ function simulation!(path::Path, shocks::ADraw, model, a; n, trim, trim_def)
     in_def[1] = false
     no_def_duration[1] = 1
 
-    state = init_simulation_state(model, shocks.y_ind[1])
+    state = init_simulation_state(model, y_ind[1])
     for t in 1:n
         y_ind[t] = shocks.y_ind[t]
         m[t] = shocks.m[t]
@@ -111,8 +111,8 @@ function simulation!(path::Path, shocks::ADraw, model, a; n, trim, trim_def)
         def[t] = false
         ck_default[t] = false
 
-        if (!in_def[t]) && is_a_default(a, b_ind[t], state, m[t], run[t])
-            ck_default[t] = is_a_run(a, b_ind[t], state, m[t], run[t])
+        if (!in_def[t]) && is_a_default(a, b_ind[t], state, m[t], run, t)
+            ck_default[t] = is_a_run(a, b_ind[t], state, m[t], run, t)
             def[t] = true 
             in_def[t] = true
         end 
@@ -188,13 +188,13 @@ function assign_values_sims!((c, κ, r), model, a, b, bp, (y1, ), t)
 end 
 
 
-is_a_default(a, b, y, m, run) = _is_a_default(has_runs(a.model), a, b, y, m, run)
-_is_a_default(::NoRuns, a, b, y, m, run) = get_d_pol(a)[b, y...] < m
-_is_a_default(::WithRuns, a, b, y, m, run) = _is_a_default(NoRuns(), a, b, y, m, run) || _is_a_run(WithRuns(), a, b, y, m, run)
+is_a_default(a, b, y, m, run, t) = _is_a_default(has_runs(a.model), a, b, y, m, run, t)
+_is_a_default(::NoRuns, a, b, y, m, run, t) = get_d_pol(a)[b, y...] < m
+_is_a_default(::WithRuns, a, b, y, m, run, t) = _is_a_default(NoRuns(), a, b, y, m, run, t) || _is_a_run(WithRuns(), a, b, y, m, run, t)
 
-is_a_run(a, b, y, m, run) = _is_a_run(has_runs(a.model), a, b, y, m, run)
-_is_a_run(::NoRuns, a, b, y, m, run) = false
-_is_a_run(::WithRuns, a, b, y, m, run) = run && (get_ck_d_pol(a)[b, y...] < m)  && !_is_a_default(NoRuns(), a, b, y, m, run)
+is_a_run(a, b, y, m, run, t) = _is_a_run(has_runs(a.model), a, b, y, m, run, t)
+_is_a_run(::NoRuns, a, b, y, m, run, t) = false
+_is_a_run(::WithRuns, a, b, y, m, run, t) = run[t] && (get_ck_d_pol(a)[b, y...] < m)  && !_is_a_default(NoRuns(), a, b, y, m, run, t)
 
 
 moments(sim_path::Path, a) = moments([sim_path], a)
