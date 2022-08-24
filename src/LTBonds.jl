@@ -86,7 +86,7 @@ export
     discretize,
 
 # initializers
-    generate_workspace, 
+    generate_workspace, copy_workspace, 
 
 # government problem 
     solve!,

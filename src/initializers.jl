@@ -9,7 +9,7 @@ function generate_workspace(
     v = nothing,
     vD1 = nothing, 
     q = nothing, 
-    κ = nothing
+    κ = nothing 
 )
 
     @unpack pen1, pen2, threshold, quadratic = get_base_pars(model).def_costs
@@ -69,3 +69,6 @@ function generate_workspace(
     return WorkSpace(model, cur, new, policies, cache)
 end 
 
+
+
+copy_workspace(model, ws) = WorkSpace(model, copy(ws.new), copy(ws.current), copy(ws.policies), copy(ws.cache))

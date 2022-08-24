@@ -77,11 +77,16 @@ struct Iterables{T0, T1, T2, T3}
     κ::T3
 end 
 
+Base.copy(i::Iterables) = Iterables(copy(i.v), copy(i.vD1), copy(i.q), copy(i.κ))
+
 struct Policies{T0, T1, T2}
     b::T0
     d::T1
     ck_d::T2
 end 
+
+Base.copy(p::Policies) = Policies(copy(p.b), copy(p.d), copy(p.ck_d))
+
 
 struct Cache{T1, T2, T3, T4, T5, T6, T7, T8}
     vD::T1
@@ -94,6 +99,7 @@ struct Cache{T1, T2, T3, T4, T5, T6, T7, T8}
     repay::T8
 end 
 
+Base.copy(c::Cache) = Cache(copy(c.vD), copy(c.Ev), copy(c.cdef), copy(c.ucdef), copy(c.tmp_vD), copy(c.bond_return), copy(c.decay_b), copy(c.repay)) 
 
 abstract type AbstractRuns end 
 
