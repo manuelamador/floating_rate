@@ -31,7 +31,7 @@ function draws(model; n::S, rng = nothing, seed = 1234) where (S<:Integer)
 
     run = draw_runs(model, n; rng)
 
-    return ADraw(m_sim, run, re_entry, y_ind)
+    return Shocks(m_sim, run, re_entry, y_ind)
 end 
 
 
@@ -61,7 +61,7 @@ end
 
 
 draw_runs(model, n; rng) = draw_runs(has_runs(model), model, n; rng)
-draw_runs(::NoRuns, model, n; rng)  = fill(false, n)
+draw_runs(::NoRuns, model, n; rng)  = nothing
 draw_runs(::WithRuns, model, n; rng)  = rand(rng, Bernoulli(get_η(model)), n) 
 
 
@@ -73,14 +73,14 @@ end
 
 # If shocks is a vector, do a threaded map
 simulation(shocks::Vector, a; kwargs...) = tmap(x -> simulation(x, a.model, a; kwargs...), shocks)
-simulation(shocks_vec::ADraw, model, a; n, trim, trim_def) = simulation!(Path(model, n), shocks_vec, model, a; n, trim, trim_def)
+simulation(shocks_vec::Shocks, model, a; n, trim, trim_def) = simulation!(Path(model, n), shocks_vec, model, a; n, trim, trim_def)
 
 simulation!(paths::Vector, shocks_vec::Vector, a; kwargs...) = tmap(x -> simulation!(x[1], x[2], a.model, a; kwargs...), zip(paths, shocks_vec))
 
-function simulation!(path::Path, shocks::ADraw, model, a; n, trim, trim_def)
+function simulation!(path::Path, shocks::Shocks, model, a; n, trim, trim_def)
     @unpack run, re_entry = shocks
     @unpack c, y, m, b, bp, q, qb, κ, tb, r, def, in_def, y_ind, b_ind, bp_ind, no_def_duration, in_sample, in_def_sample, ck_default = path
-    
+
     zero_idx = get_bond(model).zero
   
     b_ind[1] = zero_idx

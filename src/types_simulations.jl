@@ -50,7 +50,7 @@ function Path(model, n)
     )
 end 
 
-struct ADraw{T0, T1, T2, T3}
+struct Shocks{T0, T1, T2, T3}
     m::T0
     run::T1
     re_entry::T2
