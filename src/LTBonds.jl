@@ -2,7 +2,6 @@ module LTBonds
 
 using SpecialFunctions
 using Roots
-using UnPack
 
 using Polyester 
 
@@ -18,7 +17,6 @@ using LinearAlgebra
 using LoopVectorization
 using Distributions
 using FastGaussQuadrature
-using QuadGK
 
 include("types.jl")  # load the types first
 include("types_bonds.jl") 

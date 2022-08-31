@@ -12,8 +12,8 @@ function generate_workspace(
     κ = nothing 
 )
 
-    @unpack pen1, pen2, threshold, quadratic = get_base_pars(model).def_costs
-    @unpack β, u = get_preferences(model)
+    (; pen1, pen2, threshold, quadratic) = get_base_pars(model).def_costs
+    (; β, u) = get_preferences(model)
 
     y_grid = get_y_grid(model)
     b_grid = get_b_grid(model)

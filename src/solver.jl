@@ -54,11 +54,11 @@ end
 
 # Updates the default values  
 function update_all_vD!(model, a)
-    @unpack vD, Ev, ucdef, cdef = get_cache(a)
+    (; vD, Ev, ucdef, cdef) = get_cache(a)
     vD1_new = get_new(a).vD1
     vD1 = get_current(a).vD1
 
-    @unpack β, u = get_preferences(model)
+    (; β, u) = get_preferences(model)
     izero = get_zero_index(get_bond(model))
     θ = get_base_pars(model).def_costs.reentry
     Π = get_y(model).Π

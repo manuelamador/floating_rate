@@ -72,10 +72,10 @@ end
 
 function optimize!(model, a, yi, bi, b_range)
     b_pol = get_b_pol(a) 
-    @unpack vD, Ev = get_cache(a)
+    (; vD, Ev) = get_cache(a)
 
-    @unpack m_min, m_max = get_m(a)
-    @unpack β, u = get_preferences(a)
+    (; m_min, m_max) = get_m(a)
+    (; β, u) = get_preferences(a)
 
     b_pol = get_b_pol_at(a, bi, yi)
 
@@ -133,7 +133,7 @@ end
 
 function policy_thresholds!(model, a; bi, yi)
     m = get_m(model)
-    @unpack β, u = get_preferences(model)
+    (; β, u) = get_preferences(model)
     p = get_b_pol_at(a, bi, yi)
 
     @inbounds begin         
@@ -182,8 +182,8 @@ end
 
 
 function default_threshold!(::NoRuns, model, a; bi, yi)
-    @unpack β, u = get_preferences(model)
-    @unpack m_min, m_max = get_m(model)
+    (; β, u) = get_preferences(model)
+    (; m_min, m_max) = get_m(model)
 
     @inbounds begin
         vD_ = get_vD_at(a, yi)
@@ -219,8 +219,8 @@ end
 
 
 function default_threshold!(::WithRuns, model, a; bi, yi)
-    @unpack β, u = get_preferences(model)
-    @unpack m_min, m_max = get_m(model)
+    (; β, u) = get_preferences(model)
+    (; m_min, m_max) = get_m(model)
 
     vD_val = get_vD_at(a, yi)
     biprime = get_decay_b_at(a, bi)
@@ -240,7 +240,7 @@ end
 
 
 function integrate_v_helper(model, a, bi, biprime, yi, m0, m1)
-    @unpack β, u = get_preferences(model)
+    (; β, u) = get_preferences(model)
     m = get_m(model)
     c = get_c_at(a, bi, biprime, yi)   
     eV = get_Ev_at(a, biprime, yi)
@@ -252,10 +252,10 @@ end
 
 
 function integrate_v_and_bond_return!(::NoRuns, model, a; bi, yi) 
-    @unpack β, u = get_preferences(model)
+    (; β, u) = get_preferences(model)
     m = get_m(model)
     q = get_q(a)
-    @unpack m_min, m_max = m
+    (; m_min, m_max) = m
 
     @inbounds begin
         vD_val = get_vD_at(a, yi)
@@ -292,11 +292,11 @@ end
 
 
 function integrate_v_and_bond_return!(::WithRuns, model, a; bi, yi) 
-    @unpack β, u = get_preferences(model)
+    (; β, u) = get_preferences(model)
     m = get_m(model)
     q = get_q(a)
     η = get_η(model)
-    @unpack m_min, m_max = m
+    (; m_min, m_max) = m
 
     @inbounds begin
         vD_val = get_vD_at(a, yi)

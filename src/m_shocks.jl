@@ -1,6 +1,6 @@
 
 function quadrature!(m::MShock, f, ma, mb)
-    @unpack nodes, weights = m
+    (; nodes, weights) = m
     val = zero(ma)
     mid = (mb + ma)/2
     dis = (mb - ma)/2

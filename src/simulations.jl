@@ -78,8 +78,8 @@ simulation(shocks_vec::Shocks, model, a; n, trim, trim_def) = simulation!(Path(m
 simulation!(paths::Vector, shocks_vec::Vector, a; kwargs...) = tmap(x -> simulation!(x[1], x[2], a.model, a; kwargs...), zip(paths, shocks_vec))
 
 function simulation!(path::Path, shocks::Shocks, model, a; n, trim, trim_def)
-    @unpack run, re_entry = shocks
-    @unpack c, y, m, b, bp, q, qb, κ, tb, r, def, in_def, y_ind, b_ind, bp_ind, no_def_duration, in_sample, in_def_sample, ck_default = path
+    (; run, re_entry) = shocks
+    (; c, y, m, b, bp, q, qb, κ, tb, r, def, in_def, y_ind, b_ind, bp_ind, no_def_duration, in_sample, in_def_sample, ck_default) = path
 
     zero_idx = get_bond(model).zero
   
