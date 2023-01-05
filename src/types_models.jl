@@ -49,6 +49,12 @@ mutable struct WorkSpace{M0, M1, M2, M3, M4}
     cache::M4
 end 
 
+get_preferences(ws::WorkSpace) = get_preferences(ws.model)
+get_u(ws::WorkSpace) = get_u(ws.model)
+get_b_grid(ws::WorkSpace) = get_b_grid(ws.model)
+get_y_grid(ws::WorkSpace) = get_y_grid(ws.model)
+get_bond(ws::WorkSpace) = get_bond(ws.model)
+
 get_new(ws) = ws.new
 get_current(ws) = ws.current
 get_policies(ws) = ws.policies
