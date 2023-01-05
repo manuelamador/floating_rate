@@ -4,7 +4,7 @@ The repository contains the code associated with the paper:
 
 ["Sovereign debt crises and floating-rate bonds"](https://manuelamador.me/files/floatingrate.pdf)
     
-by Mark Aguiar, Manuel Amador and Ricardo Alves Monteiro (2021).
+by Mark Aguiar, Manuel Amador and Ricardo Alves Monteiro (2023).
 
 
 ## Structure
@@ -37,17 +37,7 @@ That should open a browser with [Jupyter](https://jupyter.org/) . Navigate to `s
 
 There are five notebooks in `scripts`:
 
-  - `EG_vs_CK.ipynb` compare models with and without the possibility of Cole-Kehoe runs. 
-
-  - `chatterjee_eyigungor.ipynb` replicates the results of Chatterjee and Eyigungor (AER 2012) paper. 
-
-  - `Chapter7plots.ipynb` generates the plots in chapter 7 of ["The economics of sovereign debt and default"](https://press.princeton.edu/books/hardcover/9780691176819/the-economics-of-sovereign-debt-and-default).
-
-  - `floating_rate.ipynb` solves the one period bond model (with and without runs), the long term bond model (with and without runs) and the floating rate bond model. It generates the plots used in  ["Sovereign debt crises and floating-rate bonds"](https://manuelamador.me/files/floatingrate.pdf)
-
-  - `floating_rate_simulations.ipynb` generates the simulations and associated moments. 
-  
-Associated with Jupyter each notebook, there is a Julia script (`.jl`) that can be run instead. 
+  - `floating_rate_figures_tables.ipynb` solves the one period bond model (with and without runs), the long term bond model (with and without runs) and the floating rate bond model. It generates the plots and tables presented in  ["Sovereign debt crises and floating-rate bonds"](https://manuelamador.me/files/floatingrate.pdf)
 
    
 
