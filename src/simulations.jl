@@ -87,7 +87,7 @@ function simulation!(path::Path, shocks::Shocks, model, a; n, trim, trim_def)
     in_def[1] = false
     no_def_duration[1] = 1
 
-    state = init_simulation_state(model, y_ind[1])
+    state = init_simulation_state(model, shocks.y_ind[1])
     for t in 1:n
         y_ind[t] = shocks.y_ind[t]
         m[t] = shocks.m[t]

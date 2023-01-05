@@ -64,6 +64,7 @@ export
     get_bond, 
     get_λ, 
     get_κ,
+    get_preferences, 
 
     get_base_pars, 
     get_b_pol, 
